@@ -1,0 +1,166 @@
+#include <bits\stdc++.h>
+
+
+using namespace std;
+
+class SinhVien{
+	private :
+		string maSV, NS;
+	public :
+		string hoTen;
+		double diemTB;
+		SinhVien();
+		SinhVien(string maSV, string hoTen, string NS, double diemTB);
+		SinhVien(const SinhVien &sv);
+		SinhVien(string hoTen);
+		void nhap(); 
+		void xuat() const;
+		void setHoTen(string hoTen);
+		string getHoTen();
+		SinhVien operator + (SinhVien &b);
+		bool operator> (SinhVien &b);
+		SinhVien& operator++();// ++a
+		SinhVien operator++(int); // a++ :: int ko dong vai tro gi chi de phan biet ++a voi a++
+		friend void giamDiemTB(SinhVien &x);
+		~SinhVien();	// ham huy
+};
+
+SinhVien :: SinhVien(){
+	cout<< "\nGoi ham khoi tao SinhVien()"<< endl;
+}
+SinhVien :: SinhVien(string hoTen){
+	this->hoTen  = hoTen;
+	cout<< "\nGoi ham khoi tao SinhVien(string hoTen)"<< endl;
+}
+SinhVien :: SinhVien(string maSV, string hoTen, string NS, double diemTB){
+	this->maSV = maSV;
+	this->hoTen = hoTen;
+	this->NS = NS;
+	this->diemTB = diemTB;
+}
+SinhVien :: SinhVien(const SinhVien &sv)	//ham copy du lieu
+{ 
+	this->maSV = sv.maSV;
+	this->hoTen = sv.hoTen;
+	this->NS = sv.NS;
+	this->diemTB = sv.diemTB;
+	cout << "\nGoi ham copy du lieu"<< endl;
+}
+
+SinhVien :: ~SinhVien(){
+	cout<<"\nGoi ham huy"<< endl;
+}
+
+void SinhVien:: xuat() const{
+	cout<< this->maSV << " "<< this->hoTen << " " << this->NS << " " 
+	<< fixed << setprecision(2) << this->diemTB<< endl;
+}
+void SinhVien::setHoTen(string hoTen){
+	this->hoTen = hoTen;
+}
+string SinhVien::getHoTen(){
+	return this->hoTen;
+}
+void SinhVien :: nhap(){
+	fflush(stdin);
+	cout<<"Nhap ma sinh vien: "; getline(cin, maSV);
+	cout<<"Nhap ho ten: "; getline(cin, hoTen);
+	cout<<"Nhap ngay sinh: "; getline(cin, NS);
+	cout<<"Nhap diem: "; cin>> diemTB;
+}
+
+void tangDiem(SinhVien a){
+	a.diemTB++;
+	cout<< "Diem ban copy: "<< a.diemTB;
+}
+
+SinhVien SinhVien :: operator+ (SinhVien &b){ // &:: khong muon tao ra ban copy
+	SinhVien sv;
+	sv.hoTen = this->hoTen;
+	sv.maSV = this->maSV;
+	sv.NS = this->NS;
+	sv.diemTB =this->diemTB ;
+	sv.diemTB = (sv.diemTB + b.diemTB)/2;
+	return sv;
+}
+bool SinhVien :: operator> (SinhVien &b){
+	return this->diemTB > b.diemTB;
+}
+SinhVien& SinhVien :: operator++() // ++a
+{
+	this->diemTB++;
+	return *this;
+}
+SinhVien SinhVien :: operator++(int)
+{
+	SinhVien temp =  *this;
+	this->diemTB ++; // ++*this;
+	return temp;
+}
+void giamDiemTB(SinhVien &x){
+	x.diemTB --;	
+}
+
+class SinhVienNam1 : public SinhVien{
+	private:
+		int diemThi;
+	public: 
+		SinhVienNam1();
+		SinhVienNam1(int diemThi);
+		SinhVienNam1(string hoTen, int diemThi);
+		~SinhVienNam1();
+		void nhap2();
+		void in();
+};
+SinhVienNam1 :: SinhVienNam1(){
+	cout<<"\nKhoi tao sinh vien nam 1";
+}
+SinhVienNam1 :: SinhVienNam1(int diemThi){
+	this->diemThi = diemThi;
+}
+SinhVienNam1 :: SinhVienNam1(string hoTen, int diemThi) : SinhVien(hoTen){
+	this->diemThi = diemThi;
+	cout<< "Goi ham khoi tao SinhVienNam1(string hoten, int diemThi)"<< endl;
+}
+SinhVienNam1 :: ~SinhVienNam1(){
+	cout<< "\nGoi ham huy sinh vien nam 1";
+}
+void SinhVienNam1 :: nhap2(){
+	cout<<"\nNhap diem thi: "; cin >> diemThi;
+}
+void SinhVienNam1 :: in(){
+	cout<<"Diem thi: "<< diemThi;
+}
+int main(){
+//	SinhVien sv("sv01", "Nguyen Ngoc Duc", "06/03/2003", 3);
+//	sv.xuat();
+//	cout<< sv.getHoTen()<< endl;
+//	sv.setHoTen("Nguyen Mai Anh");
+//	cout<< sv.getHoTen()<< endl;	
+//	SinhVien svA("a", "1", "1", 4);
+//	SinhVien svB("b", "2", "2", 6);
+
+	//sv.nhap();
+//	sv.xuat();
+//	tangDiem(sv);
+//	cout<< endl;
+//	sv.xuat();
+	//SinhVien svC= svA + svB;
+	//svC = svA.operator+(svB); 
+//	giamDiemTB(svA);
+//	svA.xuat();
+//	SinhVienNam1 a;
+//	a.nhap2();
+//	a.in();
+	
+//	SinhVienNam1 svn1;
+//	svn1.hoTen = "Nguyen Mai Anh";
+//	SinhVien sv;
+//	sv = svn1; //  lop cha gan bang lop con duoc nguoc lai thi khong
+//	cout<< "Ho ten doi tuong sinh vien: "<< sv.hoTen << endl;
+
+	SinhVienNam1 svn1("Nguyen Ngoc Duc", 6);
+	cout<< "Ho ten doi tuong: "<< svn1.hoTen<< endl;
+	
+	return 0;
+}
