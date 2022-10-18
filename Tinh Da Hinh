@@ -8,6 +8,9 @@ class dv{
 		virtual void move(){
 			cout<< "move cua dv"<< endl;
 		}
+		virtual void speak(){
+			cout<< "speak cua dv"<< endl;
+		}
 };
 
 class ran : public dv{
@@ -15,11 +18,17 @@ class ran : public dv{
 		void move(){
 			cout<<"move cua ran"<< endl;
 		}
+		void speak(){
+			cout<< "speak cua ran"<< endl;
+		}
 };
 class ga : public dv{
 	public:
 		void move(){
 			cout<< "move cua ga"<< endl;
+		}
+		void speak(){
+			cout<< "speak cua ga"<< endl;
 		}
 };
 class cho : public dv{
@@ -27,13 +36,24 @@ class cho : public dv{
 		void move(){
 			cout<< "move cua cho"<< endl;
 		}
+		void speak(){
+			cout<< "speak cua cho"<< endl;
+		}
 };
 class meo : public dv{
 	public:
 		void move(){
 			cout<< "move cua meo"<< endl;
 		}
+		void speak(){
+			cout<< "speak cua meo"<< endl;
+		}
 };
+
+void kill(dv &dv){
+	//logic kill
+	dv.speak();
+} 
 int main(){
 //	dv *dv;
 //	ran r;
@@ -54,8 +74,10 @@ int main(){
 	dsDV[2] = &g;
 	dsDV[3] = &m;
 	
+	bool trungDan = true;
 	for(int i=0; i<4; i++){
 		dsDV[i]->move();
+		if(trungDan) kill(*dsDV[i]);
 	}
 	
 	return 0;
