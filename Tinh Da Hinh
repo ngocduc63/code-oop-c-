@@ -1,0 +1,62 @@
+#include <bits\stdc++.h>
+
+using namespace std;
+
+
+class dv{
+	public :
+		virtual void move(){
+			cout<< "move cua dv"<< endl;
+		}
+};
+
+class ran : public dv{
+	public:
+		void move(){
+			cout<<"move cua ran"<< endl;
+		}
+};
+class ga : public dv{
+	public:
+		void move(){
+			cout<< "move cua ga"<< endl;
+		}
+};
+class cho : public dv{
+	public:
+		void move(){
+			cout<< "move cua cho"<< endl;
+		}
+};
+class meo : public dv{
+	public:
+		void move(){
+			cout<< "move cua meo"<< endl;
+		}
+};
+int main(){
+//	dv *dv;
+//	ran r;
+//	dv = &r;
+//	dv->move();
+
+
+	dv **dsDV;
+	dsDV = new dv*[4]; 
+	
+	ran r;
+	cho c;
+	ga g;
+	meo m;
+	
+	dsDV[0] = &r;
+	dsDV[1] = &c;
+	dsDV[2] = &g;
+	dsDV[3] = &m;
+	
+	for(int i=0; i<4; i++){
+		dsDV[i]->move();
+	}
+	
+	return 0;
+} 
