@@ -65,6 +65,7 @@ OTO :: OTO(){
 OTO :: ~OTO(){
 }
 void OTO:: nhapOTO(){
+	PhuongTienGiaoThong :: nhapPTGT();
 	cout<< "Nhap so cho ngoi: "; 
 	cin>> soChoNgoi;
 	fflush(stdin);
@@ -73,6 +74,7 @@ void OTO:: nhapOTO(){
 }
 
 void OTO :: xuatOTO(){
+	PhuongTienGiaoThong :: xuatPTGT();
 	cout<<" "<<soChoNgoi<< " "<< kieuDongCo<<endl;
 }
 
@@ -84,7 +86,6 @@ bool operator< (OTO &oto1, OTO &oto2){
 	else return false;
 }
 void xuat(OTO oto){
-	oto.xuatPTGT();
 	oto.xuatOTO();	
 	cout<< "Van toc co so: "<< oto.tinhVanToc()<< endl;
 }
@@ -101,7 +102,6 @@ int main(){
 	OTO *oto = new OTO[n];
 	for(int i=0; i<n; i++){
 		cout<< "Nhap oto thu "<< i+1<< ": "<< endl;
-		oto[i].nhapPTGT();
 		oto[i].nhapOTO();	
 	}
 	cout<< "-----Danh sach cac oto: "<<endl;
