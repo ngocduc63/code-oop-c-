@@ -1,0 +1,121 @@
+#include <bits\stdc++.h>
+
+using namespace std;
+
+class PhuongTienGiaoThong{
+	private:
+		string hangSanXuat, tenPhuongTien;
+		int namSanXuat;
+		float vanTocToiDa;
+	public:
+		float getVanTocToiDa();
+		PhuongTienGiaoThong();
+		~PhuongTienGiaoThong();
+		void nhapPTGT();
+		void xuatPTGT();
+};
+
+PhuongTienGiaoThong :: PhuongTienGiaoThong(){
+	hangSanXuat = " ";
+	tenPhuongTien = " ";
+	namSanXuat = 0;
+	vanTocToiDa = 100;
+}
+PhuongTienGiaoThong :: ~PhuongTienGiaoThong(){
+}
+
+float PhuongTienGiaoThong :: getVanTocToiDa(){
+	return vanTocToiDa;
+}
+void PhuongTienGiaoThong:: nhapPTGT(){
+	cout<< "Nhap hang san xuat: ";
+	fflush(stdin);
+	getline(cin, hangSanXuat);
+	cout<< "Nhap ten phuong tien: ";
+	getline(cin, tenPhuongTien);
+	cout<< "Nhap nam san xuat: ";
+	cin>> namSanXuat;
+	cout<< "Nhap van toc toi da: ";
+	cin>> vanTocToiDa;
+}
+void PhuongTienGiaoThong:: xuatPTGT(){
+	cout<< "-Hang san xuat: "<< hangSanXuat<< endl;
+	cout<< "-Ten Phuong Tien: "<< tenPhuongTien<<endl;
+	cout<< "-Nam San Xuat: "<< namSanXuat<<endl;
+	cout<< "-Van toc toi da:"<< vanTocToiDa<< endl;
+}
+
+class OTO : public PhuongTienGiaoThong{
+	private: 
+		int soChoNgoi;
+		string kieuDongCo;
+	public: 
+		OTO();
+		~OTO();
+		void nhapOTO();
+		void xuatOTO();
+		float tinhVanToc();
+		friend bool operator< (OTO &oto1, OTO &tot2); 
+};
+
+OTO :: OTO(){
+	soChoNgoi = 0;
+	kieuDongCo= " ";
+}
+OTO :: ~OTO(){
+}
+void OTO:: nhapOTO(){
+	cout<< "Nhap so cho ngoi: "; 
+	cin>> soChoNgoi;
+	fflush(stdin);
+	cout<< "Nhap kieu dong co: ";
+	getline(cin, kieuDongCo);
+}
+
+void OTO :: xuatOTO(){
+	cout<<" "<<soChoNgoi<< " "<< kieuDongCo<<endl;
+}
+
+float OTO :: tinhVanToc(){
+	return getVanTocToiDa()/ 4; 
+}
+bool operator< (OTO &oto1, OTO &oto2){
+	if(oto1.tinhVanToc() < oto2.tinhVanToc()) return true;
+	else return false;
+}
+void xuat(OTO oto){
+	oto.xuatPTGT();
+	oto.xuatOTO();	
+	cout<< "Van toc co so: "<< oto.tinhVanToc()<< endl;
+}
+int main(){
+	PhuongTienGiaoThong ptgt;
+	cout<< "------Nhap phuong tien giao thong: "<< endl;
+	ptgt.nhapPTGT();
+	cout<<"Phuong tien da nhap la: "<< endl;
+	ptgt.xuatPTGT();
+	cout<< "------Nhap cac oto: "<< endl;
+	int n;
+	cout<< "Nhap n: "; 
+	cin>> n;
+	OTO *oto = new OTO[n];
+	for(int i=0; i<n; i++){
+		cout<< "Nhap oto thu "<< i+1<< ": "<< endl;
+		oto[i].nhapPTGT();
+		oto[i].nhapOTO();	
+	}
+	cout<< "-----Danh sach cac oto: "<<endl;
+	for(int i=0; i<n; i++){
+		cout<< "---Oto thu "<< i+1<< ": "<< endl;
+		xuat(oto[i]);
+	}
+	for(int i=0; i<n; i++){
+		for(int j=i+1; j<n; j++){
+			if(oto[i].tinhVanToc()< oto[j].tinhVanToc()) swap(oto[i], oto[j]);
+		}
+	}
+	cout<< "-----Danh sach cac oto sau sap xep: "<<endl;
+	for(int i=0; i<n; i++){
+		xuat(oto[i]);
+	}
+}
