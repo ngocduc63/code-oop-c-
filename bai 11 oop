@@ -1,0 +1,133 @@
+#include <bits\stdc++.h>
+using namespace std;
+
+class MonHoc{
+	private:
+		string maMH, tenMH;
+		float dtb;
+		int soTC;
+	public:
+		MonHoc();
+		~MonHoc();
+		int getTinChi();
+		float getDTB();
+		void nhapMH();
+		void xuatMH();
+};
+MonHoc :: MonHoc(){
+	maMH = " ";
+	tenMH = " ";
+	dtb = 0;
+	soTC = 0;
+}
+MonHoc :: ~MonHoc(){
+	
+}
+int MonHoc :: getTinChi(){
+	return soTC;
+}
+float MonHoc :: getDTB(){
+	return dtb;
+}
+void MonHoc :: nhapMH(){
+	cout<< "Nhap ma mon hoc: ";
+	fflush(stdin);
+	getline(cin, maMH);
+	cout<< "Nhap ten mon hoc: ";
+	getline(cin, tenMH);
+	cout<< "Nhap diem trung binh: ";
+	cin>> dtb;
+	cout<< "Nhap so tin chi: ";
+	cin>> soTC;
+}
+void MonHoc :: xuatMH(){
+	cout<< "-Ma MH: "<< maMH<< endl;
+	cout<< "-Ten MH: "<< tenMH<< endl;
+	cout<< "-Diem TB: "<< dtb<< endl;
+	cout<< "-So TC: "<< soTC<< endl;
+}
+
+class SinhVien{
+	private:
+		string maSV, tenSV;
+		int soMH;
+		MonHoc arr[100];
+	public:
+		SinhVien();
+		~SinhVien();
+		void nhapSV();
+		void xuatSV();
+		float dtk();
+};
+SinhVien :: SinhVien(){
+	maSV = " ";
+	tenSV = " ";
+	soMH = 0;
+}
+SinhVien :: ~SinhVien(){
+	
+}
+void SinhVien :: nhapSV(){
+	cout<< "Nhap ma sinh vien: ";
+	fflush(stdin);
+	getline(cin, maSV);
+	cout<< "Nhap ten sinh vien: ";
+	getline(cin, tenSV);
+	cout<< "Nhap so mon hoc: ";
+	cin>> soMH;
+	for(int i=0; i<soMH; i++){
+		cout<< "-Nhap mon hoc thu "<< i+1<< ": "<< endl;
+		arr[i].nhapMH();
+	}
+}
+void SinhVien :: xuatSV(){
+	cout<< "-Ma SV: "<< maSV<< endl;
+	cout<< "-Ten SV: "<< tenSV<< endl;
+	for(int i=0; i< soMH; i++){
+		cout<< "--Mon hoc thu "<< i+1<< ": "<< endl;
+		arr[i].xuatMH();
+	}
+}
+float SinhVien :: dtk(){
+	float ts, ms;
+	for(int i=0 ;i< soMH; i++){
+		ts += arr[i].getDTB() * arr[i].getTinChi();
+		ms += arr[i].getTinChi();
+	}
+	return ts/ms;
+}
+int main(){
+	MonHoc mh1;
+	cout<< "-----Nhap thong tin 1 mon hoc: "<< endl;
+	mh1.nhapMH();
+	mh1.xuatMH();
+	
+	int n;
+	cout<< "-----Nhap so luong sinh vien: ";
+	cin>> n;
+	
+	SinhVien *sv = new SinhVien[n];
+	for(int i=0; i<n; i++){
+		cout<< "---Nhap sinh vien thu "<< i+1<< ": "<< endl;
+		sv[i].nhapSV();
+	}
+	cout<< "-----Danh sach sinh vien: "<< endl;
+	for(int i=0; i<n; i++){
+		cout<< "-----Sinh vien thu "<< i+1<< ": "<< endl;
+		sv[i].xuatSV();
+		cout<< "---DTK: "<< sv[i].dtk()<< endl;
+	}
+	cout<< "-----Danh sach sinh vien duoc cap hoc bong (DTK >= 8.5): "<< endl;
+	int test =0;
+	for(int i=0; i<n; i++){
+		float dtk = sv[i].dtk() ;
+		if(dtk >= 8.5){
+			sv[i].xuatSV();
+			cout<< "---DTK: "<< dtk << endl;
+			test = 1;
+		}
+	}
+	if(test == 0) cout<< "Khong co!"<< endl; 
+	
+	delete []sv;
+}
